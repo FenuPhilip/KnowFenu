@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fenu M Philip | Tech Innovator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      --black: #000000;
+      --yellow: #FFD700;
+      --dark-yellow: #d4b300;
+      --neon-glow: 0 0 10px var(--yellow), 0 0 20px var(--yellow), 0 0 30px var(--yellow);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--black);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 4rem 2rem;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Rocket Loading Animation */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--black);
+      z-index: 9999;
+      flex-direction: column;
+    }
+
+    .rocket-container {
+      position: relative;
+      width: 100px;
+      height: 200px;
+      margin-bottom: 2rem;
+    }
+
+    .rocket {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23FFD700" d="M256 0c-4.6 0-9.2 1-13.4 2.9L188.8 25.4C178.4 29.7 169.4 36 162.1 44L131.5 79.5c-12.3 14.8-20.7 32.1-24.5 50.5L96.7 164c-4.4 17.3-13.6 33-26.2 44.9L2.9 252.7c-3.8 3.8-3.8 10 0 13.8l48.2 48.2c3.8 3.8 10 3.8 13.8 0l43.8-43.8c11.9-12.6 27.6-21.8 44.9-26.2l34-10.3c18.4-3.8 35.7-12.2 50.5-24.5l35.5-30.6c8-7.3 14.3-16.3 18.6-26.7l22.5-53.8C255 9.2 256 4.6 256 0zm0 112c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zM132.5 379.5c-3.8 3.8-6 8.7-6.7 13.8l-4.4 33.2-33-4.4c-5.1-.7-10-2.9-13.8-6.7L2.9 388.7c-3.8-3.8-3.8-10 0-13.8l48.2-48.2c3.8-3.8 10-3.8 13.8 0l43.8 43.8c3.8 3.8 6 8.7 6.7 13.8l4.4 33 33.2-4.4c5.1-.7 10-2.9 13.8-6.7l43.8-43.8c3.8-3.8 10-3.8 13.8 0l48.2 48.2c3.8 3.8 3.8 10 0 13.8l-43.8 43.8c-3.8 3.8-6 8.7-6.7 13.8l-4.4 33-33-4.4c-5.1-.7-10-2.9-13.8-6.7l-43.8-43.8zM384 256c0 70.7-57.3 128-128 128s-128-57.3-128-128 57.3-128 128-128 128 57.3 128 128z"/></svg>') center/contain no-repeat;
+      bottom: 0;
+      animation: rocketLaunch 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+      transform: translateY(100vh);
+    }
+
+    @keyframes rocketLaunch {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+      }
+    }
+
+    .rocket-trail {
+      position: absolute;
+      width: 4px;
+      height: 100vh;
+      background: linear-gradient(to top, transparent, var(--yellow), transparent);
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: trailFade 2s 0.5s forwards;
+    }
+
+    @keyframes trailFade {
+      0% {
+        opacity: 0;
+        height: 0;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0;
+        height: 100vh;
+      }
+    }
+
+    .loading-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      color: var(--yellow);
+      opacity: 0;
+      animation: textFade 1.5s 1.5s forwards;
+      text-shadow: var(--neon-glow);
+    }
+
+    @keyframes textFade {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Navigation */
+    #navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    #navbar.scrolled {
+      background: rgba(0, 0, 0, 0.9);
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: var(--yellow);
+      text-decoration: none;
+      text-shadow: var(--neon-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--yellow);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--yellow);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    #hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at center, #111 0%, #000 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: var(--yellow);
+      text-shadow: var(--neon-glow);
+      animation: titleGlow 3s infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% {
+        text-shadow: 0 0 10px var(--yellow);
+      }
+      100% {
+        text-shadow: 0 0 20px var(--yellow), 0 0 30px var(--yellow);
+      }
+    }
+
+    .hero-tagline {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+
+    .hero-subtagline {
+      font-size: 1.5rem;
+      color: var(--yellow);
+      height: 2rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px var(--yellow);
+    }
+
+    .cta-button {
+      background: var(--yellow);
+      color: var(--black);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--yellow);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.5s ease;
+      z-index: -1;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .cta-button:hover {
+      box-shadow: 0 0 25px var(--yellow);
+      transform: translateY(-3px);
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--yellow);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* About Section */
+    #about {
+      background: linear-gradient(to bottom, #0a0a0a, #111111);
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--yellow);
+      box-shadow: 0 0 30px var(--yellow);
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-glow {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      background: var(--yellow);
+      filter: blur(20px);
+      opacity: 0.3;
+      animation: pulseGlow 3s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        opacity: 0.3;
+      }
+      100% {
+        opacity: 0.6;
+      }
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .skill {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: 1px solid var(--yellow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+      transition: all 0.5s ease;
+    }
+
+    .skill:hover::before {
+      left: 100%;
+    }
+
+    /* Projects Section */
+    #projects {
+      background: linear-gradient(to bottom, #111111, #0a0a0a);
+      position: relative;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--yellow);
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--yellow);
+      box-shadow: var(--neon-glow);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s ease;
+    }
+
+    .section-title:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: rgba(20, 20, 20, 0.8);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 215, 0, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(255, 215, 0, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--yellow);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .project-image-container {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .project-card:hover .project-image {
+      transform: scale(1.1);
+    }
+
+    .project-info {
+      padding: 1.5rem;
+    }
+
+    .project-title {
+      color: var(--yellow);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .project-description {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tech-tag {
+      background: rgba(255, 215, 0, 0.1);
+      color: var(--yellow);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .tech-tag:hover {
+      background: rgba(255, 215, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Project Modal */
+    .project-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal-content {
+      background: #111;
+      border-radius: 10px;
+      max-width: 800px;
+      width: 90%;
+      padding: 2rem;
+      position: relative;
+      border: 1px solid var(--yellow);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+      animation: modalSlideUp 0.5s ease;
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      margin: 1rem 0;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--yellow);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .close-modal:hover {
+      transform: rotate(90deg);
+      text-shadow: 0 0 10px var(--yellow);
+    }
+
+    .modal-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .modal-links a {
+      background: var(--yellow);
+      color: #000;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-links a:hover {
+      background: var(--dark-yellow);
+      transform: translateY(-2px);
+    }
+
+    /* Contact Section */
+    #contact {
+      background: linear-gradient(to bottom, #0a0a0a, #000000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .contact-container {
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact-form {
+      background: rgba(20, 20, 20, 0.8);
+      padding: 2rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--yellow);
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 5px;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--yellow);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background: #000;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+      position: relative;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--yellow);
+      text-decoration: none;
+      text-shadow: var(--neon-glow);
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .social-links a {
+      color: var(--yellow);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .social-links a:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 215, 0, 0.2);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .copyright {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .visitor-counter {
+      margin-top: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .counter-number {
+      font-weight: bold;
+      animation: counterPulse 2s infinite;
+    }
+
+    @keyframes counterPulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Background Elements */
+    .grid-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 215, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    .floating-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .shape {
+      position: absolute;
+      opacity: 0.1;
+      border-radius: 50%;
+      background: var(--yellow);
+      filter: blur(10px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-tagline {
+        font-size: 1.2rem;
+      }
+      
+      .loading-text {
+        font-size: 2rem;
+      }
+
+      .about-content {
+        flex-direction: column;
+      }
+
+      .profile-container {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 2rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Rocket Loading Animation -->
+  <div id="loading-screen">
+    <div class="rocket-container">
+      <div class="rocket"></div>
+      <div class="rocket-trail"></div>
+    </div>
+    <h1 class="loading-text">Fenu M Philip</h1>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">Fenu</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="particles" id="particles-js"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Fenu M Philip</h1>
+      <p class="hero-tagline">Brainstorm. Code. Build Bigger.</p>
+      <p class="hero-subtagline" id="rotating-tagline">Web Development</p>
+      <a href="#projects" class="cta-button">View My Work</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="grid-pattern"></div>
+    <div class="floating-shapes" id="about-shapes"></div>
+    <div class="container about-content">
+      <div class="profile-container">
+        <div class="profile-glow"></div>
+        <img src="asssets/Profile.jpg" alt="Fenu M Philip" class="profile-image">
+      </div>
+      <div class="about-text">
+        <h2 class="section-title">About Me</h2>
+        <p>I'm Fenu M Philip, a Computer Science Engineering student with a strong foundation from my 3-year Diploma in Computer Engineering at College of Engineering Poonjar. Passionate about building creative, impactful tech solutions – from web applications to embedded IoT systems.</p>
+        <p>My journey in technology began with a curiosity about how things work, which evolved into a passion for creating solutions that solve real-world problems. I thrive on the challenge of turning complex ideas into elegant, functional applications.</p>
+        
+        <h3 style="margin-top: 2rem; color: var(--yellow);">Skills & Expertise</h3>
+        <div class="skills-container">
+          <span class="skill">HTML/CSS (90%)</span>
+          <span class="skill">JavaScript (85%)</span>
+          <span class="skill">React (80%)</span>
+          <span class="skill">Node.js (75%)</span>
+          <span class="skill">ESP32/IoT (85%)</span>
+          <span class="skill">Cybersecurity (80%)</span>
+          <span class="skill">Firebase (80%)</span>
+          <span class="skill">Python (70%)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="grid-pattern"></div>
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card" onclick="openModal('project1')">
+          <div class="project-image-container">
+            <img src="asssets/prj1.png" alt="Campus Connect" class="project-image">
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">Campus Connect</h3>
+            <p class="project-description">A comprehensive platform for intra-campus communication and resource sharing.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Node.js</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card" onclick="openModal('project2')">
+          <div class="project-image-container">
+            <img src="asssets/prj2.png" alt="Transport Tracker" class="project-image">
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">Transport Tracker</h3>
+            <p class="project-description">Real-time tracking system for institutional transport vehicles.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">ESP32</span>
+              <span class="tech-tag">Google Maps</span>
+              <span class="tech-tag">IoT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card" onclick="openModal('project3')">
+          <div class="project-image-container">
+            <img src="asssets/prj3.png" alt="Cyber Security" class="project-image">
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">IoT Security Suite</h3>
+            <p class="project-description">Penetration testing tools for IoT device security.</p>
+            <div class="tech-tags">
+              <span class="tech-tag">ESP32</span>
+              <span class="tech-tag">Wireshark</span>
+              <span class="tech-tag">Python</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Modals -->
+    <div id="project1" class="project-modal">
+      <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+        <h3>Campus Connect Platform</h3>
+        <img src="https://via.placeholder.com/800x500?text=Campus+Connect+Screens" alt="Campus Connect" class="modal-image">
+        <p>A comprehensive web application designed to enhance communication and resource sharing within educational campuses. The platform features:</p>
+        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+          <li>Real-time messaging between students and faculty</li>
+          <li>Event management system with RSVP functionality</li>
+          <li>Resource sharing portal for study materials</li>
+          <li>Announcement broadcasting system</li>
+          <li>User authentication and role-based access</li>
+        </ul>
+        <div class="modal-links">
+          <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="project2" class="project-modal">
+      <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+        <h3>Transport Tracking System</h3>
+        <img src="https://via.placeholder.com/800x500?text=Transport+Tracker+Screens" alt="Transport Tracker" class="modal-image">
+        <p>An IoT-based solution for tracking institutional transport vehicles in real-time with the following features:</p>
+        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+          <li>Real-time GPS tracking of vehicles</li>
+          <li>Estimated arrival time predictions</li>
+          <li>Route optimization algorithms</li>
+          <li>Driver performance analytics</li>
+          <li>Mobile-friendly web interface</li>
+        </ul>
+        <div class="modal-links">
+          <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="project3" class="project-modal">
+      <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+        <h3>IoT Security Toolkit</h3>
+        <img src="https://via.placeholder.com/800x500?text=Security+Toolkit+Screens" alt="IoT Security" class="modal-image">
+        <p>A suite of tools for penetration testing and securing IoT devices, featuring:</p>
+        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+          <li>Network vulnerability scanner</li>
+          <li>Packet sniffing and analysis</li>
+          <li>Device fingerprinting</li>
+          <li>Security audit reporting</li>
+          <li>Automated exploit testing</li>
+        </ul>
+        <div class="modal-links">
+          <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="grid-pattern"></div>
+    <div class="container contact-container">
+      <h2 class="section-title">Get In Touch</h2>
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="cta-button">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <a href="#" class="footer-logo">Fenu M Philip</a>
+      <p>Turning ideas into innovative digital solutions</p>
+      
+      <div class="social-links">
+        <a href="" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/fenuphilip/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/fenu__philip__" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+      
+      <div class="visitor-counter">
+        <i class="fas fa-rocket"></i>
+        <span>Visitor Count: <span class="counter-number" id="visitorCount">1,247</span></span>
+      </div>
+      
+      <p class="copyright">© 2023 Fenu M Philip. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Loading animation completion
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loading-screen').style.opacity = '0';
+        setTimeout(function() {
+          document.getElementById('loading-screen').style.display = 'none';
+        }, 500);
+      }, 3000);
+    });
+
+    // Rotating tagline
+    const taglines = ["Web Development", "Cybersecurity", "IoT Innovator", "Problem Solver", "Tech Enthusiast"];
+    let currentTagline = 0;
+    const taglineElement = document.getElementById('rotating-tagline');
+    
+    function rotateTagline() {
+      taglineElement.style.opacity = '0';
+      setTimeout(() => {
+        currentTagline = (currentTagline + 1) % taglines.length;
+        taglineElement.textContent = taglines[currentTagline];
+        taglineElement.style.opacity = '1';
+      }, 500);
+    }
+    
+    setInterval(rotateTagline, 2000);
+
+    // Project modals
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      const modals = document.querySelectorAll('.project-modal');
+      modals.forEach(modal => {
+        modal.style.display = 'none';
+      });
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside content
+    window.addEventListener('click', function(event) {
+      if (event.target.classList.contains('project-modal')) {
+        closeModal();
+      }
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Visitor counter
+    function updateCounter() {
+      let count = localStorage.getItem('visitorCount') || 1247;
+      count++;
+      localStorage.setItem('visitorCount', count);
+      document.getElementById('visitorCount').textContent = count.toLocaleString();
+    }
+    
+    updateCounter();
+
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Here you would typically send the data to a server
+      // For this demo, we'll just show a confirmation
+      
+      alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon at ${email}.`);
+      contactForm.reset();
+    });
+
+    // Create floating shapes in about section
+    function createFloatingShapes() {
+      const container = document.getElementById('about-shapes');
+      const shapesCount = 10;
+      
+      for (let i = 0; i < shapesCount; i++) {
+        const shape = document.createElement('div');
+        shape.classList.add('shape');
+        
+        // Random properties
+        const size = Math.random() * 100 + 50;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        const animationType = Math.random() > 0.5 ? 'float' : 'rotate';
+        
+        shape.style.width = `${size}px`;
+        shape.style.height = `${size}px`;
+        shape.style.left = `${posX}%`;
+        shape.style.top = `${posY}%`;
+        shape.style.animation = `${animationType} ${duration}s ease-in-out ${delay}s infinite`;
+        
+        container.appendChild(shape);
+      }
+    }
+    
+    createFloatingShapes();
+
+    // Create particles for hero section
+    function createParticles() {
+      const container = document.getElementById('particles-js');
+      const particleCount = 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random properties
+        const size = Math.random() * 3 + 1;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 10 + 5;
+        const delay = Math.random() * 5;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+        
+        container.appendChild(particle);
+      }
+    }
+    
+    createParticles();
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
