@@ -3,242 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Under Construction</title>
+    <title>Coming Soon | KnowFenu</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
             text-align: center;
-            overflow: hidden;
-        }
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .container {
-            max-width: 800px;
-            padding: 2rem;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
             line-height: 1.6;
         }
 
-        .progress-container {
-            width: 100%;
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #000;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 80px;
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 2px;
             margin-bottom: 2rem;
             overflow: hidden;
         }
 
-        .progress-bar {
+        .loader-bar {
             height: 100%;
-            width: 0%;
-            background-color: #fff;
-            border-radius: 10px;
-            transition: width 0.3s ease;
-            animation: progress 3s infinite;
+            width: 20%;
+            background: #000;
+            border-radius: 2px;
+            animation: loader 2s ease-in-out infinite;
         }
 
-        @keyframes progress {
-            0% { width: 0%; }
-            50% { width: 100%; }
-            100% { width: 0%; }
-        }
-
-        .construction-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-links a:hover {
-            transform: scale(1.2);
-        }
-
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .floating-element {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 50%;
-            animation: float linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
+        @keyframes loader {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(400%); }
+            100% { transform: translateX(-100%); }
         }
 
         .contact-btn {
-            background-color: white;
-            color: #333;
+            background: #000;
+            color: white;
             border: none;
             padding: 0.8rem 2rem;
             font-size: 1rem;
-            border-radius: 50px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
+            transition: all 0.2s ease;
+            font-weight: 500;
             margin-top: 1rem;
         }
 
         .contact-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
-    <div class="floating-elements" id="floatingElements"></div>
-    
     <div class="container">
-        <div class="construction-icon">🚧</div>
-        <h1>Working On It!</h1>
-        <p>I'm currently building my portfolio website. Exciting things are coming soon!</p>
-        <p>In the meantime, feel free to connect with me or check back later.</p>
+        <div class="emoji">👨‍💻</div>
+        <h1>Working on something great</h1>
+        <p>My portfolio is currently under construction.<br>I'm putting the finishing touches on it.</p>
         
-        <div class="progress-container">
-            <div class="progress-bar"></div>
+        <div class="loader">
+            <div class="loader-bar"></div>
         </div>
         
-        <button class="contact-btn" onclick="showEmail()">Contact Me</button>
-        
-        <div class="social-links">
-            <a href="#" title="Twitter">🐦</a>
-            <a href="#" title="LinkedIn">🔗</a>
-            <a href="#" title="GitHub">💻</a>
-            <a href="#" title="Dribbble">🏀</a>
-        </div>
+        <button class="contact-btn" onclick="showEmail()">Contact me in the meantime</button>
     </div>
 
     <script>
-        // Create floating elements
-        function createFloatingElements() {
-            const container = document.getElementById('floatingElements');
-            const elementCount = 15;
-            
-            for (let i = 0; i < elementCount; i++) {
-                const element = document.createElement('div');
-                element.classList.add('floating-element');
-                
-                // Random properties
-                const size = Math.random() * 20 + 10;
-                const posX = Math.random() * 100;
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                
-                element.style.width = `${size}px`;
-                element.style.height = `${size}px`;
-                element.style.left = `${posX}%`;
-                element.style.bottom = `-${size}px`;
-                element.style.animationDuration = `${duration}s`;
-                element.style.animationDelay = `${delay}s`;
-                
-                container.appendChild(element);
-            }
-        }
-        
-        // Show email when contact button is clicked
         function showEmail() {
-            alert("You can reach me at: hello@example.com\n\n(Replace this with your actual email)");
+            alert("You can reach me at: fenuphilip19@gmail.com\n\nI'll respond as soon as possible!");
         }
-        
-        // Change construction emoji periodically
-        function changeEmoji() {
-            const emojis = ['🚧', '👷', '🔨', '🛠️', '⚒️', '🧰', '🔧', '🔩'];
-            const icon = document.querySelector('.construction-icon');
-            let counter = 0;
-            
-            setInterval(() => {
-                icon.textContent = emojis[counter % emojis.length];
-                counter++;
-            }, 2000);
-        }
-        
-        // Initialize everything when page loads
-        window.onload = function() {
-            createFloatingElements();
-            changeEmoji();
-            
-            // Update social links with your actual profiles
-            const socialLinks = document.querySelectorAll('.social-links a');
-            socialLinks[0].href = 'https://twitter.com/yourprofile';
-            socialLinks[1].href = 'https://linkedin.com/in/yourprofile';
-            socialLinks[2].href = 'https://github.com/yourprofile';
-            socialLinks[3].href = 'https://dribbble.com/yourprofile';
-        };
+
+        // Cycle through different work emojis
+        const emojis = ['👨‍💻', '✏️', '🎨', '🛠️', '📐'];
+        const emojiElement = document.querySelector('.emoji');
+        let counter = 0;
+
+        setInterval(() => {
+            emojiElement.textContent = emojis[counter % emojis.length];
+            counter++;
+        }, 2000);
     </script>
 </body>
 </html>
