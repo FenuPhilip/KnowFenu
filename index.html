@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon | KnowFenu</title>
+    <title>Coming Soon | My Portfolio</title>
     <style>
         body {
             margin: 0;
@@ -22,6 +22,7 @@
         .container {
             max-width: 600px;
             padding: 2rem;
+            position: relative;
         }
 
         h1 {
@@ -71,7 +72,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: 500;
-            margin-top: 1rem;
+            margin: 1rem 0;
         }
 
         .contact-btn:hover {
@@ -84,17 +85,59 @@
             margin-bottom: 1rem;
             display: inline-block;
             animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            user-select: none;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
+
+        /* New interactive elements */
+        .fun-fact {
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            padding: 0.8rem;
+            background: rgba(0,0,0,0.05);
+            border-radius: 8px;
+            opacity: 0.8;
+        }
+
+        .mini-game {
+            margin-top: 2rem;
+        }
+
+        .click-counter {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            opacity: 0.7;
+        }
+
+        .hidden-message {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .container:hover .hidden-message {
+            opacity: 0.5;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="emoji">👨‍💻</div>
+        <div class="emoji" id="mainEmoji" title="Click me!">👨‍💻</div>
         <h1>Working on something great</h1>
         <p>My portfolio is currently under construction.<br>I'm putting the finishing touches on it.</p>
         
@@ -102,23 +145,106 @@
             <div class="loader-bar"></div>
         </div>
         
+        <div class="progress-text" id="progressText">Current task: Designing the about section</div>
+
+        <div class="fun-fact" id="funFact">
+            Did you know? The first website went live in 1991.
+        </div>
+
+        <div class="mini-game">
+            <button class="contact-btn" id="clickerBtn">Click for fun (0)</button>
+            <div class="click-counter" id="clickCounter"></div>
+        </div>
+
         <button class="contact-btn" onclick="showEmail()">Contact me in the meantime</button>
+
+        <div class="hidden-message">
+            Pssst... try clicking the emoji above!
+        </div>
     </div>
 
     <script>
+        // Email function
         function showEmail() {
-            alert("You can reach me at: fenuphilip19@gmail.com\n\nI'll respond as soon as possible!");
+            alert("You can reach me at: hello@yourdomain.com\n\nI'll respond as soon as possible!");
         }
 
-        // Cycle through different work emojis
-        const emojis = ['👨‍💻', '✏️', '🎨', '🛠️', '📐'];
-        const emojiElement = document.querySelector('.emoji');
+        // Emoji cycler and click interaction
+        const emojis = ['👨‍💻', '✏️', '🎨', '🛠️', '📐', '💡'];
+        const funEmojis = ['🤯', '🎉', '👾', '🦄', '🚀', '🌈'];
+        const emojiElement = document.getElementById('mainEmoji');
         let counter = 0;
 
         setInterval(() => {
             emojiElement.textContent = emojis[counter % emojis.length];
             counter++;
         }, 2000);
+
+        emojiElement.addEventListener('click', () => {
+            const randomEmoji = funEmojis[Math.floor(Math.random() * funEmojis.length)];
+            emojiElement.textContent = randomEmoji;
+            setTimeout(() => {
+                emojiElement.textContent = emojis[counter % emojis.length];
+            }, 1000);
+        });
+
+        // Fun facts rotator
+        const funFacts = [
+            "Did you know? The average person spends about 6 hours a day on digital media.",
+            "Fun fact: The first computer mouse was made of wood.",
+            "Tech trivia: The 'www' in websites stands for World Wide Web.",
+            "Did you know? There are about 1.8 billion websites in the world.",
+            "Fun fact: The first YouTube video was uploaded in 2005.",
+            "Tech trivia: The first computer bug was an actual moth stuck in the hardware."
+        ];
+        const funFactElement = document.getElementById('funFact');
+
+        setInterval(() => {
+            const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
+            funFactElement.textContent = randomFact;
+        }, 8000);
+
+        // Progress text rotator
+        const progressTasks = [
+            "Current task: Designing the about section",
+            "Current task: Optimizing performance",
+            "Current task: Writing project case studies",
+            "Current task: Testing mobile responsiveness",
+            "Current task: Adding final content",
+            "Current task: Preparing for launch"
+        ];
+        const progressTextElement = document.getElementById('progressText');
+
+        setInterval(() => {
+            const randomTask = progressTasks[Math.floor(Math.random() * progressTasks.length)];
+            progressTextElement.textContent = randomTask;
+        }, 5000);
+
+        // Click counter game
+        let clickCount = 0;
+        const clickerBtn = document.getElementById('clickerBtn');
+        const clickCounter = document.getElementById('clickCounter');
+        const clickMessages = [
+            "Keep going!",
+            "You're on a roll!",
+            "Click master!",
+            "Unstoppable!",
+            "Legendary clicks!",
+            "Are you tired yet?"
+        ];
+
+        clickerBtn.addEventListener('click', () => {
+            clickCount++;
+            clickerBtn.textContent = `Click for fun (${clickCount})`;
+            
+            if (clickCount % 10 === 0) {
+                const randomMessage = clickMessages[Math.floor(Math.random() * clickMessages.length)];
+                clickCounter.textContent = randomMessage;
+                setTimeout(() => {
+                    clickCounter.textContent = '';
+                }, 2000);
+            }
+        });
     </script>
 </body>
 </html>
